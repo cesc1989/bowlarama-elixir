@@ -1,6 +1,8 @@
-# BowlaramaElixir
+# Bowlarama
 
-**TODO: Add description**
+Bowling scores for awesome bowlers.
+
+> This is the Elixir version of [Bowlarama](https://github.com/cesc1989/bowlarama/)
 
 ## Installation
 
