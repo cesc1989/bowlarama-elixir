@@ -22,3 +22,13 @@ end
 ```
 
 Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc) and published on [HexDocs](https://hexdocs.pm). Once published, the docs can be found at [https://hexdocs.pm/bowlarama_elixir](https://hexdocs.pm/bowlarama_elixir).
+
+## Debugging in iex
+
+Load Elixir interactive console with the application modules
+
+```elixir
+$ iex -S mix 
+```
+
+After doing code changes, reload in console with `recompile` instruction.
