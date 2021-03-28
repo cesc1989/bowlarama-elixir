@@ -12,7 +12,6 @@ defmodule BowlaramaElixir do
   ## Examples
 
       iex(8)> BowlaramaElixir.score_sheet('./fixtures/scores.txt')
-
   """
   def score_sheet(file) do
     case File.read(file) do
@@ -22,24 +21,17 @@ defmodule BowlaramaElixir do
   end
 
   defp process(lines) do
-    players_with_scores = String.split(lines, "\n", trim: true)
+    list_of_players = String.split(lines, "\n", trim: true)
+
+    # Create a list of lists: [["Jeff", "10"], ["John", "3"], [], ...]
+    players_with_scores = Enum.map(list_of_players, fn(score) -> String.split(score, " ") end)
     players_map = extract_players(players_with_scores)
+
+    Players.assign_scores_to(players_map, players_with_scores)
   end
 
   # Return a Map of the players: %{Jeff: [], John: []}
-  defp extract_players(scores) do
-    # First (Enum.map), create a list of lists
-    #
-    #  [["Jeff", "10"], ["John", "3"], [], ...]
-    #
-    # Second (players_from()), extract the players names into a two items Map
-    #
-    # %{Jeff: [], John: []}
-    Enum.map(scores, fn(score) -> String.split(score, " ") end) |>
-    players_from()
-  end
-
-  defp players_from(nested_lists) do
+  defp extract_players(nested_lists) do
     Enum.reduce(nested_lists, %{}, fn(sublist, accumulator) ->
       if length(Map.keys(accumulator)) == 2 do
         accumulator
