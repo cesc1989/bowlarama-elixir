@@ -40,14 +40,14 @@ defmodule BowlaramaElixir do
   end
 
   defp players_from(nested_lists) do
-    Enum.reduce(nested_lists, %{}, fn(sublist, acc) ->
-      if length(Map.keys(acc)) == 2 do
-        acc
+    Enum.reduce(nested_lists, %{}, fn(sublist, accumulator) ->
+      if length(Map.keys(accumulator)) == 2 do
+        accumulator
       else
         player = List.first(sublist)
 
-        unless Map.has_key?(acc, String.to_atom(player)) do
-          Map.put(acc, String.to_atom(player), [])
+        unless Map.has_key?(accumulator, String.to_atom(player)) do
+          Map.put(accumulator, String.to_atom(player), [])
         end
       end
     end)
