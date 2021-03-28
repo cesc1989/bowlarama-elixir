@@ -7,41 +7,49 @@ defmodule BowlaramaElixir do
   """
 
   @doc """
-  Read scores from file.
+  Output the match's scoresheet
 
   ## Examples
 
-      iex(8)> BowlaramaElixir.read_score_from('./fixtures/scores.txt')
-        ["Jeff 10", "John 3", "John 7", "Jeff 7", "Jeff 3", "John 6", "John 3",
-         "Jeff 9", "Jeff 0", "John 10", "Jeff 10", "John 8", "John 1", "Jeff 0",
-         "Jeff 8", "John 10", "Jeff 8", "Jeff 2", "John 10", "Jeff F", "Jeff 6",
-         "John 9", "John 0", "Jeff 10", "John 7", "John 3", "Jeff 10", "John 4",
-         "John 4", "Jeff 10", "Jeff 8", "Jeff 1", "John 10", "John 9", "John 0"]
+      iex(8)> BowlaramaElixir.score_sheet('./fixtures/scores.txt')
 
   """
-  def read_score_from(file) do
+  def score_sheet(file) do
     case File.read(file) do
-      {:ok, binary} -> convert_lines(binary)
+      {:ok, binary} -> process(binary)
       {:error, _reason} -> "File does not exist"
     end
   end
 
-  defp convert_lines(lines) do
-    lines |>
-    String.split("\n", trim: true) |>
-    players()
+  defp process(lines) do
+    players_with_scores = String.split(lines, "\n", trim: true)
+    players_map = extract_players(players_with_scores)
   end
 
-  # Create a list of two tuples with the values corresponding to
-  # the two players and their scores.
-  #
-  # Example
-  #
-  # [{:jeff, [10, 7, 8]}, {:john, [9, 8, 3]}]
-  #
-  # then create a Map with the names of the two players.
-  defp players(scores) do
+  # Return a Map of the players: %{Jeff: [], John: []}
+  defp extract_players(scores) do
+    # First (Enum.map), create a list of lists
+    #
+    #  [["Jeff", "10"], ["John", "3"], [], ...]
+    #
+    # Second (players_from()), extract the players names into a two items Map
+    #
+    # %{Jeff: [], John: []}
     Enum.map(scores, fn(score) -> String.split(score, " ") end) |>
-    Players.players_from()
+    players_from()
+  end
+
+  defp players_from(nested_lists) do
+    Enum.reduce(nested_lists, %{}, fn(sublist, acc) ->
+      if length(Map.keys(acc)) == 2 do
+        acc
+      else
+        player = List.first(sublist)
+
+        unless Map.has_key?(acc, String.to_atom(player)) do
+          Map.put(acc, String.to_atom(player), [])
+        end
+      end
+    end)
   end
 end
