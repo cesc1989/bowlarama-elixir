@@ -7,8 +7,16 @@ defmodule Players do
   # scores: [["Jeff", "10"], ["John", "3"], [], ...]
   def assign_scores_to(players, scores) do
     player_1 = List.first(players)
+    player_2 = List.last(players)
 
-    Enum.reduce(scores, [], fn(pair, acc) -> [assign_to_player(player_1, pair) | acc] end) |>
+    %{
+      player_1 => assign(player_1, scores),
+      player_2 => assign(player_2, scores)
+    }
+  end
+
+  defp assign(player, scores) do
+    Enum.reduce(scores, [], fn(pair, acc) -> [assign_to_player(player, pair) | acc] end) |>
     organize_scores()
   end
 
