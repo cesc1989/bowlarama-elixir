@@ -16,11 +16,11 @@ defmodule Players do
   end
 
   defp assign(player, scores) do
-    Enum.reduce(scores, [], fn(pair, acc) -> [assign_to_player(player, pair) | acc] end) |>
+    Enum.reduce(scores, [], fn(pair, acc) -> [filter_scores(player, pair) | acc] end) |>
     organize_scores()
   end
 
-  defp assign_to_player(player, score_pair) do
+  defp filter_scores(player, score_pair) do
     # Estan al reves y retornando nulos
     if List.first(score_pair) == player do
       List.last(score_pair)
