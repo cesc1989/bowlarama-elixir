@@ -1,6 +1,4 @@
-# Reglas del Proyecto
-
-Texto del documento:
+# Bowling Rules
 
 Create a command-line application to score a game of [ten-pin bowling](https://en.wikipedia.org/wiki/Ten-pin_bowling).
 
