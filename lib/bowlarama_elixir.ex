@@ -25,23 +25,32 @@ defmodule BowlaramaElixir do
 
     # Create a list of lists: [["Jeff", "10"], ["John", "3"], [], ...]
     players_with_scores = Enum.map(list_of_players, fn(score) -> String.split(score, " ") end)
-    players_map = extract_players(players_with_scores)
 
-    Players.assign_scores_to(players_map, players_with_scores)
+    # Extract players names into a list: ["Jeff", "John"]
+    players = extract_players(players_with_scores)
+
+    Players.assign_scores_to(players, players_with_scores)
   end
 
-  # Return a Map of the players: %{Jeff: [], John: []}
   defp extract_players(nested_lists) do
-    Enum.reduce(nested_lists, %{}, fn(sublist, accumulator) ->
-      if length(Map.keys(accumulator)) == 2 do
-        accumulator
-      else
-        player = List.first(sublist)
+    filtered = Enum.uniq(List.flatten(nested_lists))
 
-        unless Map.has_key?(accumulator, String.to_atom(player)) do
-          Map.put(accumulator, String.to_atom(player), [])
-        end
-      end
-    end)
+    Enum.filter(filtered, fn(ele) -> extract(ele) end)
+  end
+
+  defp extract(item) do
+    case player_from_string(item) do
+      {:error, name} -> name
+      {:ok, _integer} -> false
+      _ -> false
+    end
+  end
+
+  defp player_from_string(string) do
+    try do
+      {:ok, String.to_integer(string)}
+    rescue
+      _e in ArgumentError -> {:error, string}
+    end
   end
 end

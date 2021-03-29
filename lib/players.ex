@@ -3,9 +3,7 @@ defmodule Players do
   Map structure to hold players and their scores.
   """
 
-  def assign_scores_to(players, raw_scores) do
-    IO.inspect(players) # %{Jeff: [], John: []}
-    # ["Jeff 10", "John 3", "John 7", ...]
-    raw_scores
+  def assign_scores_to(players, scores) do
+    {players, scores}
   end
 end
