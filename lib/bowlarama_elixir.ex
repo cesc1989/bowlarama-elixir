@@ -29,7 +29,8 @@ defmodule BowlaramaElixir do
     # Extract players names into a list: ["Jeff", "John"]
     players = extract_players(players_with_scores)
 
-    Players.assign_scores_to(players, players_with_scores)
+    Players.assign_scores_to(players, players_with_scores) |>
+    ScoreCard.print()
   end
 
   defp extract_players(nested_lists) do

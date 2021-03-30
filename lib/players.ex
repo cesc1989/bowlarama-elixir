@@ -9,9 +9,9 @@ defmodule Players do
     player_1 = List.first(players)
     player_2 = List.last(players)
 
-    %{
-      player_1 => assign(player_1, scores),
-      player_2 => assign(player_2, scores)
+    {
+      %{ player_1 => assign(player_1, scores) },
+      %{ player_2 => assign(player_2, scores) }
     }
   end
 
