@@ -23,6 +23,15 @@ defmodule ScoreCard do
   end
 
   defp handle_scores(rolls) do
-    Enum.join(rolls, @single_tab)
+    Enum.map(rolls, fn(roll) -> is_a_strike(String.to_integer(roll)) end) |>
+    Enum.join(@single_tab)
+  end
+
+  defp is_a_strike(roll) do
+    if roll == 10 do
+      "X"
+    else
+      roll
+    end
   end
 end
