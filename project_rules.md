@@ -2,10 +2,7 @@
 
 Create a command-line application to score a game of [ten-pin bowling](https://en.wikipedia.org/wiki/Ten-pin_bowling).
 
-The program should run from the command-line and take a text file as input: `bowling-game.txt`.
-
-The content of the input text file (e.g., `game.txt`) for several players bowling 10 frames each. This would be like:
-
+The program should run from the command-line and take a text file as input. The content of the input text file (e.g., `game.txt`) for several players bowling 10 frames each would be like:
 ```
 Jeff 10
 John 3
