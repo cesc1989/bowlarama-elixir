@@ -23,17 +23,22 @@ defmodule ScoreCard do
   end
 
   defp print_rolls(rolls) do
-    rolls |>
-    Enum.chunk_every(2, 2, :discard) |>
-    Enum.map(fn(frame_rolls) -> mark_strikes(frame_rolls) end) |>
+    Enum.chunk_every(rolls, 2, 2, :discard) |>
+    Enum.map(fn(frame_rolls) -> strike_or_spare(frame_rolls) end) |>
     Enum.join(@single_tab)
   end
 
-  defp mark_strikes([first | _last]) when first == "10" do
-    Enum.join(["X", ""], @single_tab)
-  end
-  defp mark_strikes(frame_rolls) do
-    Enum.join(frame_rolls, @single_tab)
+  defp strike_or_spare([first | _last]) when first == "10", do: @single_tab <> "X"
+
+  # No retorno @single_tab al final porque ya en print_rolls lo hago en la última línea
+  defp strike_or_spare([first , last | _rest]) do
+    result = String.to_integer(first) + String.to_integer(last)
+
+    if result == 10 do
+      "#{first}" <> @single_tab <> "/"
+    else
+      "#{first}#{@single_tab}#{last}"
+    end
   end
 
   # defp print_scores(rolls) do
