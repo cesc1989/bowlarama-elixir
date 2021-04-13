@@ -4,22 +4,21 @@ defmodule ScoreCard do
   """
 
   @single_tab "\t"
-  @doule_tab "\t\t"
+  @double_tab "\t\t"
 
   def print({p1, p2} = _players_and_scores) do
-    IO.puts("Frame#{@doule_tab}" <> match_frames())
+    IO.puts("Frame#{@double_tab}" <> match_frames())
 
     Enum.each(p1, fn({player, scores}) -> results(player, scores) end)
     Enum.each(p2, fn({player, scores}) -> results(player, scores) end)
   end
 
-  defp match_frames, do: Enum.join([1,2,3,4,5,6,7,8,9,10], @doule_tab)
+  defp match_frames, do: Enum.join([1,2,3,4,5,6,7,8,9,10], @double_tab)
 
   defp results(player, rolls) do
     IO.puts(player)
     IO.puts("Pinfalls#{@single_tab}" <> print_rolls(rolls))
-    # Aquí es donde uso los _rolls_ puros y controlo la letra F
-    # IO.puts("Score#{@doule_tab}" <> print_scores(rolls))
+    # IO.puts("Score#{@double_tab}" <> print_scores(rolls))
   end
 
   defp print_rolls(rolls) do
@@ -41,6 +40,9 @@ defmodule ScoreCard do
     end
   end
 
-  # defp print_scores(rolls) do
-  # end
+  # Aquí es donde uso los _rolls_ puros y controlo la letra F
+  defp print_scores(rolls) do
+    Enum.chunk_every(rolls, 2, 2, :discard) |>
+    Enum.join(@single_tab)
+  end
 end
