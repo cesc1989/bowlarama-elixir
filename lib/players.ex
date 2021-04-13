@@ -16,16 +16,17 @@ defmodule Players do
   end
 
   defp assign(player, scores) do
-    Enum.reduce(scores, [], fn(pair, acc) -> [filter_scores(player, pair) | acc] end) |>
+    Enum.reduce(scores, [], fn(pair, acc) ->
+      [filter_scores(player, pair) | acc]
+    end) |>
+    Frame.frames() |>
     organize_scores()
   end
 
-  defp filter_scores(player, score_pair) do
-    # Estan al reves y retornando nulos
-    if List.first(score_pair) == player do
-      List.last(score_pair)
-    end
-  end
+  defp filter_scores(player, [name | _rest]) when name != player, do: nil
+
+  # Enum.reduce() los devuelve en orden invertido
+  defp filter_scores(player, [name, score | _]) when name == player, do: score
 
   defp organize_scores(scores) do
     Enum.reverse(scores) |>
