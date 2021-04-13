@@ -9,8 +9,8 @@ defmodule ScoreCard do
   def print({p1, p2} = _players_and_scores) do
     IO.puts("Frame#{@doule_tab}" <> match_frames())
 
-    Enum.each(p1, fn({p, v}) -> results(p, v) end)
-    Enum.each(p2, fn({p, v}) -> results(p, v) end)
+    Enum.each(p1, fn({player, scores}) -> results(player, scores) end)
+    Enum.each(p2, fn({player, scores}) -> results(player, scores) end)
   end
 
   defp match_frames, do: Enum.join([1,2,3,4,5,6,7,8,9,10], @doule_tab)
@@ -23,14 +23,19 @@ defmodule ScoreCard do
   end
 
   defp print_rolls(rolls) do
-    #Enum.map(rolls, fn(roll) -> is_a_strike(String.to_integer(roll)) end) |>
     rolls |>
+    Enum.chunk_every(2, 2, :discard) |>
+    Enum.map(fn(frame_rolls) -> mark_strikes(frame_rolls) end) |>
     Enum.join(@single_tab)
   end
 
-  defp is_a_strike(roll) when roll == 10, do: "X"
-  defp is_a_strike(roll), do: roll
+  defp mark_strikes([first | _last]) when first == "10" do
+    Enum.join(["X", ""], @single_tab)
+  end
+  defp mark_strikes(frame_rolls) do
+    Enum.join(frame_rolls, @single_tab)
+  end
 
-  # defp print_scores(_rolls) do
+  # defp print_scores(rolls) do
   # end
 end
