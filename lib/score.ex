@@ -4,7 +4,13 @@ defmodule Score do
   """
 
   def convert_to_numbers(rolls) do
-    Enum.map(rolls, fn(roll) -> String.to_integer(roll) end)
+    Enum.map(rolls, fn(roll) ->
+      if roll == "F" do
+        0
+      else
+        String.to_integer(roll)
+      end
+    end)
   end
 
   # Recibe:

@@ -29,6 +29,10 @@ defmodule ScoreCard do
 
   defp strike_or_spare([first | _last]) when first == "10", do: @single_tab <> "X"
 
+  defp strike_or_spare([first , last | _rest]) when first == "F" or last == "F" do
+    "#{first}#{@single_tab}#{last}"
+  end
+
   # No retorno @single_tab al final porque ya en print_rolls lo hago en la última línea
   defp strike_or_spare([first , last | _rest]) do
     result = String.to_integer(first) + String.to_integer(last)
@@ -40,9 +44,8 @@ defmodule ScoreCard do
     end
   end
 
-  # Aquí es donde uso los _rolls_ puros y controlo la letra F
   defp print_scores(rolls) do
-    Score.convert_to_numbers(rolls) |>
+    Score.convert_to_numbers(rolls) |> # Aquí uso los _rolls_ puros y controlo letra F
     Enum.chunk_every(2, 2, :discard) |>
     Score.calculate() |>
     Enum.join(@double_tab)

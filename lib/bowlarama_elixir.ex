@@ -47,6 +47,13 @@ defmodule BowlaramaElixir do
     end
   end
 
+  # Receives a list like this:
+  # ["Jeff", "10", "John", "8", "F"]
+  #
+  # If the string can be converted to integer, it isn't a name.
+  # Too hacky for me. Works good enough, though.
+  defp player_from_string("F"), do: {:ok, 0}
+
   defp player_from_string(string) do
     try do
       {:ok, String.to_integer(string)}
