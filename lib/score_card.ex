@@ -44,7 +44,7 @@ defmodule ScoreCard do
   defp print_scores(rolls) do
     Score.convert_to_numbers(rolls) |>
     Enum.chunk_every(2, 2, :discard) |>
-    Score.pinfalls() |>
+    Score.calculate() |>
     Enum.join(@double_tab)
   end
 end

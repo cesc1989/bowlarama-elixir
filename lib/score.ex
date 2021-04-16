@@ -12,7 +12,7 @@ defmodule Score do
   #
   # Y Retorna:
   #    [20, 30, 39, 57, 65, 75, 81, 101, 121, 139]
-  def pinfalls(rolls) do
+  def calculate(rolls) do
     calculate(rolls, [])
   end
 
