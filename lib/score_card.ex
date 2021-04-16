@@ -18,7 +18,7 @@ defmodule ScoreCard do
   defp results(player, rolls) do
     IO.puts(player)
     IO.puts("Pinfalls#{@single_tab}" <> print_rolls(rolls))
-    # IO.puts("Score#{@double_tab}" <> print_scores(rolls))
+    IO.puts("Score#{@double_tab}" <> print_scores(rolls))
   end
 
   defp print_rolls(rolls) do
@@ -42,7 +42,9 @@ defmodule ScoreCard do
 
   # Aquí es donde uso los _rolls_ puros y controlo la letra F
   defp print_scores(rolls) do
-    Enum.chunk_every(rolls, 2, 2, :discard) |>
-    Enum.join(@single_tab)
+    Score.convert_to_numbers(rolls) |>
+    Enum.chunk_every(2, 2, :discard) |>
+    Score.pinfalls() |>
+    Enum.join(@double_tab)
   end
 end
