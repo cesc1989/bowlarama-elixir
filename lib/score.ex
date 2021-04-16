@@ -16,18 +16,32 @@ defmodule Score do
     calculate(rolls, [])
   end
 
+  # For Strikes and empty result list
   defp calculate([[fst, sec | _], [n1, n2 | _] | rest], []) when fst == 10 do
     calculate([[n1, n2] | rest], [fst + sec + n1 + n2])
+  end
+
+  # For Spares and empty result list
+  defp calculate([[fst, sec | _], [n1 | frame] | rest], []) when fst + sec == 10 do
+    calculate([[n1 | frame] | rest], [fst + sec + n1])
   end
 
   defp calculate([[fst, sec | _] | rest], []) do
     calculate(rest, [fst + sec])
   end
 
+  # For Strikes
   defp calculate([[fst, sec | _], [n1, n2 | _] | rest], [ff | tail]) when fst == 10 do
     next_score = ff + fst + sec + n1 + n2
 
     calculate([[n1, n2] | rest], [next_score, ff | tail])
+  end
+
+  # For Spares
+  defp calculate([[fst, sec | _], [n1 | frame] | rest], [ff | tail]) when fst + sec == 10 do
+    next_score = ff + fst + sec + n1
+
+    calculate([[n1 | frame] | rest], [next_score, ff | tail])
   end
 
   defp calculate([[fst, sec | _] | rest], [ff | r]) do
