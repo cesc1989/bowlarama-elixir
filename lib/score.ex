@@ -16,8 +16,18 @@ defmodule Score do
     calculate(rolls, [])
   end
 
+  defp calculate([[fst, sec | _], [n1, n2 | _] | rest], []) when fst == 10 do
+    calculate([[n1, n2] | rest], [fst + sec + n1 + n2])
+  end
+
   defp calculate([[fst, sec | _] | rest], []) do
     calculate(rest, [fst + sec])
+  end
+
+  defp calculate([[fst, sec | _], [n1, n2 | _] | rest], [ff | tail]) when fst == 10 do
+    next_score = ff + fst + sec + n1 + n2
+
+    calculate([[n1, n2] | rest], [next_score, ff | tail])
   end
 
   defp calculate([[fst, sec | _] | rest], [ff | r]) do
