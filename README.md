@@ -8,27 +8,24 @@ Bowling scores for awesome bowlers.
 
 See [project rules](./project_rules.md)
 
-## Installation
-
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `bowlarama_elixir` to your list of dependencies in `mix.exs`:
-
-```elixir
-def deps do
-  [
-    {:bowlarama_elixir, "~> 0.1.0"}
-  ]
-end
-```
-
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc) and published on [HexDocs](https://hexdocs.pm). Once published, the docs can be found at [https://hexdocs.pm/bowlarama_elixir](https://hexdocs.pm/bowlarama_elixir).
-
 ## Debugging in iex
 
 Load Elixir interactive console with the application modules
 
 ```elixir
 $ iex -S mix 
+```
+
+Run project in iex console:
+
+```
+ iex(1)> Bowlarama.score_sheet('./fixtures/scores.txt')
+
+ iex(1)> Bowlarama.score_sheet('./fixtures/scores_normal.txt')
+
+ iex(1)> Bowlarama.score_sheet('./fixtures/scores_with_foul.txt')
+
+ iex(1)> Bowlarama.score_sheet('./fixtures/scores_invalid.txt')
 ```
 
 After doing code changes, reload in console with `recompile` instruction.
