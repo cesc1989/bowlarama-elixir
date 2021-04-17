@@ -15,7 +15,6 @@ defmodule Players do
       [["Jeff", "10"], ["John", "3"], [], ...]
   """
   def assign_scores_to(players, scores) do
-    IO.inspect(players)
     player_1 = List.first(players)
     player_2 = List.last(players)
 
