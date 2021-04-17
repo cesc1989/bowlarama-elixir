@@ -35,7 +35,7 @@ defmodule Score do
     r = String.to_integer(roll)
 
     if r < 0 || r > 10 do
-      raise(InvalidRoll, message: "Invalid roll #{r}")
+      raise(InvalidRollError, message: "Invalid roll #{r}")
     else
       r
     end

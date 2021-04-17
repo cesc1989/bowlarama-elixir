@@ -1,4 +1,4 @@
-defmodule BowlaramaElixir do
+defmodule Bowlarama do
   @moduledoc """
   Bowling scores for Awesome bowlers.
 
@@ -10,7 +10,7 @@ defmodule BowlaramaElixir do
 
   ## Examples
 
-      iex(8)> BowlaramaElixir.score_sheet('./fixtures/scores.txt')
+      iex(8)> Bowlarama.score_sheet('./fixtures/scores.txt')
   """
   def score_sheet(file) do
     case File.read(file) do
