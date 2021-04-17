@@ -11,34 +11,15 @@ defmodule Frame do
 
   Considers pairing for strikes by placing a number 0 besides the 10
   to simplify score calculation in Score module.
+  Example made that way will work as doctest.
+    ## Examples
 
-  ## Example
-
-  Take this list as example:
-
-      ["10","7","3","9","0","10","0","8","8","2","0","6","10","10","10","8"]
-
-  The result will be:
-
+      iex> frames(["10","7","3","9","0","10","0","8","8","2","0","6","10","10","10","8"])
       [["10","0"], ["7","3"], ["9","0"], ["10","0"], ["0","8"], ["8","2"], ["0","6"], ["10","0"], ["10","0"], ["0","10","8"]]
   """
-  def frames(pinfalls) do
-    pair_up(pinfalls)
-  end
+  def frames(pinfalls), do: pair_up(pinfalls, [])
 
-  defp pair_up(scores) do
-    pair_up(scores, [])
-  end
-
-  defp pair_up([first | rest], new_list) when first == "10" do
-    pair_up(rest, [first, "0" | new_list])
-  end
-
-  defp pair_up([first | rest], new_list) do
-    pair_up(rest, [first | new_list])
-  end
-
-  defp pair_up([], new_list) do
-    Enum.reverse(new_list)
-  end
+  defp pair_up(["10" | rest], new_list), do: pair_up(rest, ["10", "0" | new_list])
+  defp pair_up([first | rest], new_list), do: pair_up(rest, [first | new_list])
+  defp pair_up([], new_list), do: new_list |> Enum.reverse()
 end

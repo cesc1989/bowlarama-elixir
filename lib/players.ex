@@ -15,30 +15,31 @@ defmodule Players do
       [["Jeff", "10"], ["John", "3"], [], ...]
   """
   def assign_scores_to(players, scores) do
+    IO.inspect(players)
     player_1 = List.first(players)
     player_2 = List.last(players)
 
     {
-      %{ player_1 => assign(player_1, scores) },
-      %{ player_2 => assign(player_2, scores) }
+      %{player_1 => assign(player_1, scores)},
+      %{player_2 => assign(player_2, scores)}
     }
   end
 
   defp assign(player, scores) do
-    Enum.reduce(scores, [], fn(pair, acc) ->
-      [filter_scores(player, pair) | acc]
-    end) |>
-    Frame.frames() |>
-    organize_scores()
+    scores
+    |> Enum.reduce([], fn pair, acc -> [filter_scores(player, pair) | acc] end)
+    |> Frame.frames()
+    |> organize_scores()
   end
 
   defp filter_scores(player, [name | _rest]) when name != player, do: nil
 
   # Enum.reduce() va a devolverlos en orden invertido
-  defp filter_scores(player, [name, score | _]) when name == player, do: score
+  defp filter_scores(_, [_, score | _]), do: score
 
   defp organize_scores(scores) do
-    Enum.reverse(scores) |>
-    Enum.reject(fn(ele) -> is_nil(ele) end)
+    scores
+    |> Enum.reverse()
+    |> Enum.reject(&is_nil/1)
   end
 end

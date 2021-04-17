@@ -6,12 +6,10 @@ defmodule Score do
   @doc """
   Convert and validate conversion of string rolls into number rolls to do proper aritmethic.
   """
-  def convert_to_numbers(rolls) do
-    Enum.map(rolls, fn(roll) -> validate(roll) end)
-  end
+  def convert_to_numbers(rolls), do: rolls |> Enum.map(&validate/1)
 
   @doc """
-  Calcualtes scores for a player's pinfalls.
+  Calculates scores for a player's pinfalls.
 
   It considers strikes and spares rules.
 
@@ -24,6 +22,9 @@ defmodule Score do
   It'll return a final calculation:
 
       [20, 30, 39, 57, 65, 75, 81, 101, 121, 139]
+  ## Examples
+    iex> calculate( [[10,0], [7,3], [9,0], [10,0], [0,8], [8,2], [0,6], [10,0], [10,0], [0,10,8]])
+    [20, 30, 39, 57, 65, 75, 81, 101, 121, 139]
   """
   def calculate(rolls) do
     calculate(rolls, [])
