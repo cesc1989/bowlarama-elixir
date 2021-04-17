@@ -2,8 +2,7 @@ defmodule BowlaramaElixir do
   @moduledoc """
   Bowling scores for Awesome bowlers.
 
-  Take a scoresheet and output a nice table with results
-  for a bowling match.
+  Take a scoresheet file and output a results table for a bowling match.
   """
 
   @doc """

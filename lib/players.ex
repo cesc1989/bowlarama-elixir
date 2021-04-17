@@ -1,10 +1,19 @@
 defmodule Players do
   @moduledoc """
-  Structure to hold players and their scores.
+  Extract players and their scores from unorganized data.
   """
 
-  # players: ["Jeff", "John"]
-  # scores: [["Jeff", "10"], ["John", "3"], [], ...]
+  @doc """
+  Merge a list of players and scores into a two maps tuple
+  where the player's name is the key and their scores the value.
+
+  Players list looks like:
+
+      ["Jeff", "John"]
+
+  Scores list looks like:
+      [["Jeff", "10"], ["John", "3"], [], ...]
+  """
   def assign_scores_to(players, scores) do
     player_1 = List.first(players)
     player_2 = List.last(players)
@@ -25,7 +34,7 @@ defmodule Players do
 
   defp filter_scores(player, [name | _rest]) when name != player, do: nil
 
-  # Enum.reduce() los devuelve en orden invertido
+  # Enum.reduce() va a devolverlos en orden invertido
   defp filter_scores(player, [name, score | _]) when name == player, do: score
 
   defp organize_scores(scores) do

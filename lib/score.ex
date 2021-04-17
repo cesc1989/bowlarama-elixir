@@ -3,15 +3,28 @@ defmodule Score do
   Handle scores calculations, including strikes and spares.
   """
 
+  @doc """
+  Convert and validate conversion of string rolls into number rolls to do proper aritmethic.
+  """
   def convert_to_numbers(rolls) do
     Enum.map(rolls, fn(roll) -> validate(roll) end)
   end
 
-  # Recibe:
-  #    [[10,0], [7,3], [9,0], [10,0], [0,8], [8,2], [0,6], [10,0], [10,0], [0,10,8]]
-  #
-  # Y Retorna:
-  #    [20, 30, 39, 57, 65, 75, 81, 101, 121, 139]
+  @doc """
+  Calcualtes scores for a player's pinfalls.
+
+  It considers strikes and spares rules.
+
+  ## Examples
+
+  For a list of scores like this one:
+
+      [[10,0], [7,3], [9,0], [10,0], [0,8], [8,2], [0,6], [10,0], [10,0], [0,10,8]]
+
+  It'll return a final calculation:
+
+      [20, 30, 39, 57, 65, 75, 81, 101, 121, 139]
+  """
   def calculate(rolls) do
     calculate(rolls, [])
   end
