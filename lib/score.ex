@@ -4,13 +4,7 @@ defmodule Score do
   """
 
   def convert_to_numbers(rolls) do
-    Enum.map(rolls, fn(roll) ->
-      if roll == "F" do
-        0
-      else
-        String.to_integer(roll)
-      end
-    end)
+    Enum.map(rolls, fn(roll) -> validate(roll) end)
   end
 
   # Recibe:
@@ -20,6 +14,18 @@ defmodule Score do
   #    [20, 30, 39, 57, 65, 75, 81, 101, 121, 139]
   def calculate(rolls) do
     calculate(rolls, [])
+  end
+
+  defp validate("F"), do: 0
+
+  defp validate(roll) do
+    r = String.to_integer(roll)
+
+    if r < 0 || r > 10 do
+      raise(InvalidRoll, message: "Invalid roll #{r}")
+    else
+      r
+    end
   end
 
   # For Strikes and empty result list
