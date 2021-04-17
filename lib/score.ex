@@ -43,7 +43,7 @@ defmodule Score do
   end
 
   # For Strikes and empty result list
-  defp calculate([[fst, sec | _], [n1, n2 | _] | rest], []) when fst == 10 do
+  defp calculate([[10, sec | _], [n1, n2 | _] | rest], []) do
     calculate([[n1, n2] | rest], [fst + sec + n1 + n2])
   end
 
