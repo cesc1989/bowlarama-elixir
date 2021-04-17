@@ -44,7 +44,7 @@ defmodule Score do
 
   # For Strikes and empty result list
   defp calculate([[10, sec | _], [n1, n2 | _] | rest], []) do
-    calculate([[n1, n2] | rest], [fst + sec + n1 + n2])
+    calculate([[n1, n2] | rest], [10 + sec + n1 + n2])
   end
 
   # For Spares and empty result list
@@ -57,8 +57,8 @@ defmodule Score do
   end
 
   # For Strikes
-  defp calculate([[fst, sec | _], [n1, n2 | _] | rest], [ff | tail]) when fst == 10 do
-    next_score = ff + fst + sec + n1 + n2
+  defp calculate([[10, sec | _], [n1, n2 | _] | rest], [ff | tail]) do
+    next_score = ff + 10 + sec + n1 + n2
 
     calculate([[n1, n2] | rest], [next_score, ff | tail])
   end
