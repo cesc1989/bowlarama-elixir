@@ -47,7 +47,7 @@ defmodule Bowlarama do
 
   defp player_from_string(string) do
     case Integer.parse(string) do
-      :error -> true
+      :error -> string
       _ -> false
     end
   end
