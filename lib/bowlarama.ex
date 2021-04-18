@@ -23,7 +23,6 @@ defmodule Bowlarama do
       players_with_scores
       # Extract players names into a list: ["Jeff", "John"]
       |> extract_players()
-      |> IO.inspect()
       |> Players.assign_scores_to(players_with_scores)
       |> ScoreCard.print()
     else
