@@ -13,6 +13,11 @@ defmodule Players do
 
   Scores list looks like:
       [["Jeff", "10"], ["John", "3"], [], ...]
+
+  ## Tests
+
+      iex> Players.assign_scores_to(["Jeff", "John"], [["Jeff", "10"], ["John", "3"]])
+      {%{"Jeff" => ["10", "0"]}, %{"John" => ["3"]}}
   """
   def assign_scores_to(players, scores) do
     player_1 = List.first(players)
