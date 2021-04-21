@@ -25,8 +25,8 @@ defmodule Frame do
     pair_up(scores, [])
   end
 
-  defp pair_up([first | rest], new_list) when first == "10" do
-    pair_up(rest, [first, "0" | new_list])
+  defp pair_up(["10" | rest], new_list) do
+    pair_up(rest, ["10", "0" | new_list])
   end
 
   defp pair_up([first | rest], new_list) do
