@@ -27,7 +27,7 @@ defmodule ScoreCard do
     Enum.join(@single_tab)
   end
 
-  defp strike_or_spare([first | _last]) when first == "10", do: @single_tab <> "X"
+  defp strike_or_spare(["10" | _last]), do: @single_tab <> "X"
 
   defp strike_or_spare([first , last | _rest]) when first == "F" or last == "F" do
     "#{first}#{@single_tab}#{last}"

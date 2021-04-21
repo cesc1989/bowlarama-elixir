@@ -33,9 +33,8 @@ defmodule Bowlarama do
   end
 
   defp extract_players(nested_lists) do
-    filtered = Enum.uniq(List.flatten(nested_lists))
-
-    Enum.filter(filtered, fn(ele) -> extract(ele) end)
+    Enum.uniq(List.flatten(nested_lists))
+    |> Enum.filter(fn(ele) -> extract(ele) end)
   end
 
   defp extract(item) do

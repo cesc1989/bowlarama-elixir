@@ -36,10 +36,9 @@ defmodule Score do
   defp validate(roll) do
     r = String.to_integer(roll)
 
-    if r < 0 || r > 10 do
-      raise(InvalidRollError, message: "Invalid roll #{r}")
-    else
-      r
+    case r in 0..10 do
+      true -> r
+      false -> raise(InvalidRollError, message: "Invalid roll #{r}")
     end
   end
 

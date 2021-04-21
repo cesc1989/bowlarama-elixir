@@ -30,11 +30,10 @@ defmodule Players do
   end
 
   defp assign(player, scores) do
-    Enum.reduce(scores, [], fn(pair, acc) ->
-      [filter_scores(player, pair) | acc]
-    end) |>
-    Frame.frames() |>
-    organize_scores()
+    scores
+    |> Enum.reduce([], fn(pair, acc) -> [filter_scores(player, pair) | acc] end)
+    |> Frame.frames()
+    |> organize_scores()
   end
 
   defp filter_scores(player, [name | _rest]) when name != player, do: nil
@@ -43,7 +42,7 @@ defmodule Players do
   defp filter_scores(player, [name, score | _]) when name == player, do: score
 
   defp organize_scores(scores) do
-    Enum.reverse(scores) |>
-    Enum.reject(fn(ele) -> is_nil(ele) end)
+    Enum.reverse(scores)
+    |> Enum.reject(fn(ele) -> is_nil(ele) end)
   end
 end
