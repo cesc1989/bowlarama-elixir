@@ -5,6 +5,11 @@ defmodule Score do
 
   @doc """
   Convert and validate conversion of string rolls into number rolls to do proper aritmethic.
+
+  ## Examples
+
+      iex> Score.convert_to_numbers(["10", "2", "3", "5"])
+      [10, 2, 3, 5]
   """
   def convert_to_numbers(rolls), do: rolls |> Enum.map(&validate/1)
 
@@ -15,16 +20,9 @@ defmodule Score do
 
   ## Examples
 
-  For a list of scores like this one:
-
-      [[10,0], [7,3], [9,0], [10,0], [0,8], [8,2], [0,6], [10,0], [10,0], [0,10,8]]
-
-  It'll return a final calculation:
-
-      [20, 30, 39, 57, 65, 75, 81, 101, 121, 139]
-  ## Examples
-    iex> calculate( [[10,0], [7,3], [9,0], [10,0], [0,8], [8,2], [0,6], [10,0], [10,0], [0,10,8]])
-    [20, 30, 39, 57, 65, 75, 81, 101, 121, 139]
+  For a list of scores:
+      iex> Score.calculate([[10,0], [7,3], [9,0], [10,0], [0,8], [8,2], [0,6], [10,0], [10,0], [0,10,8]])
+      [20, 39, 48, 66, 74, 84, 90, 110, 130, 140]
   """
   def calculate(rolls) do
     calculate(rolls, [])
@@ -35,10 +33,9 @@ defmodule Score do
   defp validate(roll) do
     r = String.to_integer(roll)
 
-    if r < 0 || r > 10 do
-      raise(InvalidRollError, message: "Invalid roll #{r}")
-    else
-      r
+    case r in 0..10 do
+      true -> r
+      false -> raise(InvalidRollError, message: "Invalid roll #{r}")
     end
   end
 
