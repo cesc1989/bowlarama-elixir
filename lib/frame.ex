@@ -11,7 +11,7 @@ defmodule Frame do
 
   Considers pairing for strikes by placing a number 0 besides the 10
   to simplify score calculation in Score module.
-
+  Example made that way will work as doctest.
   ## Example
 
       iex> Frame.frames(["10","7","3","9","0","10","0","8","8","2","0","6","10","10","10"])
@@ -31,9 +31,5 @@ defmodule Frame do
 
   defp pair_up([first | rest], new_list) do
     pair_up(rest, [first | new_list])
-  end
-
-  defp pair_up([], new_list) do
-    Enum.reverse(new_list)
   end
 end

@@ -24,14 +24,14 @@ defmodule Players do
     player_2 = List.last(players)
 
     {
-      %{ player_1 => assign(player_1, scores) },
-      %{ player_2 => assign(player_2, scores) }
+      %{player_1 => assign(player_1, scores)},
+      %{player_2 => assign(player_2, scores)}
     }
   end
 
   defp assign(player, scores) do
     scores
-    |> Enum.reduce([], fn(pair, acc) -> [filter_scores(player, pair) | acc] end)
+    |> Enum.reduce([], fn pair, acc -> [filter_scores(player, pair) | acc] end)
     |> Frame.frames()
     |> organize_scores()
   end
@@ -39,10 +39,11 @@ defmodule Players do
   defp filter_scores(player, [name | _rest]) when name != player, do: nil
 
   # Enum.reduce() va a devolverlos en orden invertido
-  defp filter_scores(player, [name, score | _]) when name == player, do: score
+  defp filter_scores(_, [_, score | _]), do: score
 
   defp organize_scores(scores) do
-    Enum.reverse(scores)
-    |> Enum.reject(fn(ele) -> is_nil(ele) end)
+    scores
+    |> Enum.reverse()
+    |> Enum.reject(&is_nil/1)
   end
 end
